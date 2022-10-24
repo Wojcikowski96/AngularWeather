@@ -1,0 +1,3 @@
+<select [(ngModel)]="selectedCityId" (change)="setCityToPass()" class = "form-select" style="width: 100%" aria-label=".form-select-lg example">
+    <option [value]="city.identity" *ngFor="let city of citiesList">{{city.name}}</option>
+    </select>

@@ -1,0 +1,25 @@
+ <div class = "cards-wrapper">
+    <div [@inOutAnimation]="'in'" class = "weather-info" *ngFor="let forecast of forecasts" >
+        <div class = top-section>
+            <div class = "location">
+                <div class = "locatio-text">{{forecast.location}}</div>
+            </div>
+            <div class = "remove-item-wrapper">
+                <div class = remove-item  (click)="removeCardByLocationID(forecast.locationID)" ></div>
+            </div>
+        </div>
+            <div class = "weather-section">
+                <div class = "icon-section">
+                    <img class="weather-icon" [src]="forecast.iconUrl" >
+                <div class = temperature>
+                {{forecast.temperature |number: '1.0-0'}} °C
+                </div>
+        
+            </div>    
+            <div class = "description">
+              {{forecast.description}}
+            </div>
+            </div>
+        
+            </div>
+ </div>
