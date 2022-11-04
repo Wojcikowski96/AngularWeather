@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { City } from '../model/City';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable(    
     {
@@ -7,30 +8,25 @@ import { City } from '../model/City';
     }
   )
 export class TransfereService {
-    private callback = null as unknown as (city: City) => void;
-    
+  private city$ = new BehaviorSubject<any>({});
+  selectedCity$ = this.city$.asObservable();
+  
   constructor(
 
 
   ) { }
 
-  private city: City = new City;
+ 
  
 
-  setSingleCityData(city: City){
-    this.city = city;
-    this.callback(city);
+  setCity(city: any){
+    this.city$.next(city)
   }
 
-
-
-  subscribe(callback: (city: City) => void){
-    this.callback = callback;
-  }
 
 
   getCity(){
-    return this.city;
+    return this.city$
   }
 
 

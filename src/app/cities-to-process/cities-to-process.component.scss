@@ -1,0 +1,22 @@
+@import 'weather-cards/weather-cards.component';
+.cities-wrapper{
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    grid-template-columns: repeat(5, 1fr);
+
+}
+.city-item{
+    box-shadow: 10px 5px 5px gray;
+    border-radius: 25px;
+    border: 2px solid #D3D3D3;
+    padding: 5px;
+    margin-bottom: 20px;
+    width: 70%;
+    display: flex;
+    font-family: $font-family;
+    box-sizing: border-box;
+    font-size: 25px;
+    color: $font-color;
+    background-color: #c7c5c5;
+}

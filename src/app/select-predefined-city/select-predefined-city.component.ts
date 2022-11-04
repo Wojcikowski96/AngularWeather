@@ -25,7 +25,7 @@ export class SelectPredefinedCityComponent implements OnInit {
 
   setCityToPass(){
     let city = this.citiesList.find(x =>x.identity == this.selectedCityId)
-    this.transferService.setSingleCityData(city!);
+    this.transferService.setCity(city!);
     // this.router.navigateByUrl('cities-to-process');
   }
 

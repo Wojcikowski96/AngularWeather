@@ -5,6 +5,8 @@ import { City } from '../model/City';
 import { TransfereService } from '../transfer-service/TransferService';
 import { ChangeDetectorRef } from '@angular/core';
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
+import{map, startWith} from 'rxjs/operators';
+
 @Component({
   selector: 'app-weather-cards',
   templateUrl: './weather-cards.component.html',
@@ -41,44 +43,47 @@ import { animate, keyframes, state, style, transition, trigger } from '@angular/
     ])
   ]
 })
+
 export class WeatherCardsComponent implements OnInit {
   forecasts: Weather[] = [];
-  citiesForForecast: City[] = []
+
+
+  cityForForecast: any = this.transferService.getCity();
+  
 
   weatherId!: number;
 
-  cityToAdd: City = this.transferService.getCity();
-
   constructor(private weatherService: WeatherService, private transferService: TransfereService, private changeDetector: ChangeDetectorRef) { 
     console.log("konstruuję się")
-  }
-
-  async ngOnInit(): Promise<void> {
-
-    this.transferService.subscribe((city: City) => {
-      this.addCityForForecast(city);
-      this.removeCardByLocationID
+    this.transferService.selectedCity$.subscribe((value) => {
+      this.refresh(value)
+      
     })
   }
-  refresh(){
 
-    this.weatherService.getWeatherForLocation(this.citiesForForecast[this.citiesForForecast.length -1].identity).subscribe(data =>{
-      console.log("data");
-      console.log(data);
-      this.forecasts.push(data);
- });
+  ngOnInit(){
 
   }
-  addCityForForecast(city: City){
+  
+  refresh(value: any){
+    console.log("City w pogodzie")
+    console.log(this.cityForForecast)
 
-      if(this.forecasts.find(data=>data.locationID == city.identity)==null){
-        this.citiesForForecast.push(city)
-        this.refresh()
-      }else {
-        alert("Prognoza dla miasta "+city.name+" już się pokazuje")
-      }
+    this.weatherService.getWeatherForLocation(value.identity).pipe(
+      map(data => this.forecasts.push(data))
+      ).subscribe(data =>{
+      localStorage.setItem("weathers", JSON.stringify(this.forecasts));
+      console.log("Lokalny schowek")
+      console.log(localStorage["weathers"])
       
-   }
+ });
+
+ this.weatherService.getWeatherForLocation(value.identity).pipe(
+    startWith(JSON.parse(localStorage['weathers'] || '[]'))
+ )
+
+  }
+
    
   removeCardByLocationID(locationIDOther:number){
     this.weatherId = locationIDOther
@@ -87,7 +92,7 @@ export class WeatherCardsComponent implements OnInit {
     this.forecasts.forEach((element,index)=>{
       if(element.locationID==this.weatherId) {
         this.forecasts.splice(index, 1)
-        this.citiesForForecast.splice(index, 1)
+      
       };
    });
 
