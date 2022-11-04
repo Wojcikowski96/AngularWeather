@@ -16,7 +16,8 @@ import { Weather } from '../model/Weather'
         }
       
       getWeatherForLocation(identity:number): Observable<any>{
-          return this.http.get('http://localhost:8080/forecast?cityID='+identity) 
+          console.log('http://localhost:8080/forecast?cityID='+identity+"&correlationId=angular")
+          return this.http.get('http://localhost:8080/forecast?cityID='+identity+"&correlationId=angular") 
         }
   
         // getWeatherForMultipleLocations(identities:number[]): Observable<any>{
@@ -24,7 +25,7 @@ import { Weather } from '../model/Weather'
         //   params = params.appendAll({'cityID': identities})
         //   console.log(params.toString())
         //   console.log('http://localhost:8080/forecast' + params.toString())
-        //     return this.http.get<Weather>('http://localhost:8080/forecast?' + params.toString()) 
+        //     return this.http.get<Weather>('http://localhost:8081/forecast?' + params.toString()) 
         //   }
   
   }

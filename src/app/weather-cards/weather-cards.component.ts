@@ -8,7 +8,7 @@ import { animate, keyframes, state, style, transition, trigger } from '@angular/
 @Component({
   selector: 'app-weather-cards',
   templateUrl: './weather-cards.component.html',
-  styleUrls: ['./weather-cards.component.css'],
+  styleUrls: ['./weather-cards.component.scss'],
   animations: [
     trigger("inOutAnimation", [
       state("in", style({ opacity: 1 })),
@@ -63,15 +63,13 @@ export class WeatherCardsComponent implements OnInit {
   refresh(){
 
     this.weatherService.getWeatherForLocation(this.citiesForForecast[this.citiesForForecast.length -1].identity).subscribe(data =>{
-      this.forecasts.push(data[0]);
+      console.log("data");
+      console.log(data);
+      this.forecasts.push(data);
  });
 
   }
   addCityForForecast(city: City){
-    console.log("Miasta przed dodaniem: ")
-    console.log(this.citiesForForecast)
-    console.log("Pogody przed dodaniem")
-    console.log(this.forecasts)
 
       if(this.forecasts.find(data=>data.locationID == city.identity)==null){
         this.citiesForForecast.push(city)
@@ -93,8 +91,6 @@ export class WeatherCardsComponent implements OnInit {
       };
    });
 
-
-    //this.refresh()
    }
 
 }

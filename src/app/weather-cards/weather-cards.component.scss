@@ -1,0 +1,85 @@
+$card-color: rgb(94, 163, 249);
+$font-color: white;
+$font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+
+.weather-section{
+    display: flex;
+    margin: 10px
+}
+.weather-icon{
+    width: 250px;
+    height: 250px;
+}
+
+.description{
+    margin: auto;
+    font-size: 40px;
+    font-family: $font-family;
+    color: $font-color
+}
+.temperature{
+    font-size: 40px;
+    font-family: $font-family;
+    color:$font-color
+}
+.location{
+    border-radius: 25px;
+    border: 2px solid #D3D3D3;
+    width:30%;
+    padding: 5px;
+    display: flex;
+    font-family: $font-family;
+    font-size: 25px;
+    color: $font-color
+    
+}
+
+
+.remove-item-wrapper{
+    width: 5%;
+    margin-left: 60%;
+    font-weight: thin;
+    .remove-item{
+        height: 40px;
+        width: 40px;
+        background-color: rgb(94, 163, 249);
+        border-radius: 50%;
+        float: right;
+        cursor: pointer;
+        text-align: center;
+        font-size: 35px;
+        font-family: Arial;
+        color: $font-color;
+        transition: background-color 0.3s ease-out 100ms;
+        &:before{
+            content: "X";
+        }
+        &:hover{
+            background-color: red;
+        }
+        
+    }
+
+}
+
+
+.cards-wrapper{
+    .top-section{
+        display:flex
+    }
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    .weather-info{
+        box-shadow: 10px 5px 5px gray;
+        border-radius: 25px;
+        margin-bottom: 20px;
+        padding: 20px;
+        background-color: $card-color;
+        box-sizing: border-box;
+        width: 500px;
+        z-index: 10;
+    }
+}

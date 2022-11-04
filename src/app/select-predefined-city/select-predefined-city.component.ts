@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-select-predefined-city',
   templateUrl: './select-predefined-city.component.html',
-  styleUrls: ['./select-predefined-city.component.css']
+  styleUrls: ['./select-predefined-city.component.scss']
 })
 export class SelectPredefinedCityComponent implements OnInit {
   citiesList = [] as City[];
