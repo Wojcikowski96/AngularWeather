@@ -4,6 +4,8 @@
     justify-items: center;
     gap: 10px;
     grid-template-columns: repeat(5, 1fr);
+    background-color: rgb(176, 171, 171, 0.5);
+    margin-bottom: 20px;
 
 }
 .city-item{
@@ -19,4 +21,6 @@
     font-size: 25px;
     color: $font-color;
     background-color: #c7c5c5;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

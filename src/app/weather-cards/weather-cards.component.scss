@@ -1,4 +1,4 @@
-$card-color: rgb(94, 163, 249);
+$card-color: rgb(94, 163, 249, 0.7);
 $font-color: white;
 $font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
@@ -43,7 +43,6 @@ $font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     .remove-item{
         height: 40px;
         width: 40px;
-        background-color: rgb(94, 163, 249);
         border-radius: 50%;
         float: right;
         cursor: pointer;
@@ -56,7 +55,7 @@ $font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             content: "X";
         }
         &:hover{
-            background-color: red;
+            background-color: rgba(244, 115, 115, 0.8);
         }
         
     }

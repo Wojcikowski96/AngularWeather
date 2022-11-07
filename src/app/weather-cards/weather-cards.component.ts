@@ -46,6 +46,7 @@ import{map, startWith} from 'rxjs/operators';
 
 export class WeatherCardsComponent implements OnInit {
   forecasts: Weather[] = [];
+  forecastsStorage: Weather[] = [];
 
 
   cityForForecast: any = this.transferService.getCity();
@@ -54,7 +55,6 @@ export class WeatherCardsComponent implements OnInit {
   weatherId!: number;
 
   constructor(private weatherService: WeatherService, private transferService: TransfereService, private changeDetector: ChangeDetectorRef) { 
-    console.log("konstruuję się")
     this.transferService.selectedCity$.subscribe((value) => {
       this.refresh(value)
       
@@ -66,28 +66,46 @@ export class WeatherCardsComponent implements OnInit {
   }
   
   refresh(value: any){
-    console.log("City w pogodzie")
-    console.log(this.cityForForecast)
+    
+  this.forecastsStorage = JSON.parse(localStorage.getItem('weathers') || '[]')
+   console.log(this.forecastsStorage);
+   if(this.forecastsStorage.length !=0){
+    console.log("id przychodzącego miasta")
+    console.log(value.identity)
+    let cityToDisplay = this.forecastsStorage.find(data => data.locationID == value.identity)
+    if(cityToDisplay ==null){
+      this.pushDataFromRest(value)
+    }else{
+      this.pushDataFromStorage(cityToDisplay)
+    }
+   }
+    // console.log("City w pogodzie")
+    // console.log(this.cityForForecast)
 
+
+
+
+
+  }
+  pushDataFromRest(value: any){
     this.weatherService.getWeatherForLocation(value.identity).pipe(
       map(data => this.forecasts.push(data))
       ).subscribe(data =>{
       localStorage.setItem("weathers", JSON.stringify(this.forecasts));
-      console.log("Lokalny schowek")
-      console.log(localStorage["weathers"])
+      // console.log("Lokalny schowek")
+      // console.log(localStorage["weathers"])
       
  });
 
- this.weatherService.getWeatherForLocation(value.identity).pipe(
-    startWith(JSON.parse(localStorage['weathers'] || '[]'))
- )
-
+  }
+  pushDataFromStorage(value: any){
+    this.forecasts.push(value)
   }
 
    
   removeCardByLocationID(locationIDOther:number){
     this.weatherId = locationIDOther
-    console.log("lokacja  " + this.weatherId)
+    //console.log("lokacja  " + this.weatherId)
     
     this.forecasts.forEach((element,index)=>{
       if(element.locationID==this.weatherId) {
