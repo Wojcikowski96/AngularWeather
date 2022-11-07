@@ -29,7 +29,7 @@ import{map, startWith} from 'rxjs/operators';
       ]),
       transition(":leave", [
         animate(
-          500,
+          300,
           keyframes([
   
             style({ opacity: 1, offset: 0, width: '500px', height:'100%' }),
@@ -69,7 +69,15 @@ export class WeatherCardsComponent implements OnInit {
     
   this.forecastsStorage = JSON.parse(localStorage.getItem('weathers') || '[]')
    console.log(this.forecastsStorage);
-   if(this.forecastsStorage.length !=0){
+    if(this.forecasts.find(data => data.locationID ==value.identity)==null){
+      if(this.forecastsStorage.length !=0){
+        this.addForecast(value)
+       }
+    }else{
+      alert("Prognoza dla miasta "+ value.name+ " już się wyświetla")
+    }
+  }
+  addForecast(value: any){
     console.log("id przychodzącego miasta")
     console.log(value.identity)
     let cityToDisplay = this.forecastsStorage.find(data => data.locationID == value.identity)
@@ -78,23 +86,12 @@ export class WeatherCardsComponent implements OnInit {
     }else{
       this.pushDataFromStorage(cityToDisplay)
     }
-   }
-    // console.log("City w pogodzie")
-    // console.log(this.cityForForecast)
-
-
-
-
-
   }
   pushDataFromRest(value: any){
     this.weatherService.getWeatherForLocation(value.identity).pipe(
       map(data => this.forecasts.push(data))
       ).subscribe(data =>{
       localStorage.setItem("weathers", JSON.stringify(this.forecasts));
-      // console.log("Lokalny schowek")
-      // console.log(localStorage["weathers"])
-      
  });
 
   }
@@ -105,12 +102,9 @@ export class WeatherCardsComponent implements OnInit {
    
   removeCardByLocationID(locationIDOther:number){
     this.weatherId = locationIDOther
-    //console.log("lokacja  " + this.weatherId)
-    
     this.forecasts.forEach((element,index)=>{
       if(element.locationID==this.weatherId) {
         this.forecasts.splice(index, 1)
-      
       };
    });
 
