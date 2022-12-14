@@ -1,2 +1,12 @@
 <h1 style = "font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; color: white; font-size: 60px;">Internship Angular Excercise</h1>
-<app-grid-container></app-grid-container>
+<div class="container">
+  <ul class="nav nav-pills">
+    <li><a routerLinkActive="active" routerLink="/home">Home</a></li>
+    <li><a routerLinkActive="active" routerLink="/login">Login</a></li>
+    <li><a (click)="logout()">Logout</a></li>
+  </ul>
+</div>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+<!-- <app-grid-container></app-grid-container> -->

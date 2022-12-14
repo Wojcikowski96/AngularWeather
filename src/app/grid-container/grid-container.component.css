@@ -2,7 +2,7 @@
     width: 60%;
     margin: auto;
     border-radius: 25px;
-    height: 2000px;
+    height: 4000px;
 }
 .background{
     background: url("https://as2.ftcdn.net/v2/jpg/04/61/23/23/1000_F_461232389_XCYvca9n9P437nm3FrCsEIapG4SrhufP.jpg") no-repeat center center fixed; 
@@ -19,7 +19,7 @@
     z-index: -1;
     width: 60%;
     margin: auto;
-    height: 2000px;
+    height: 4000px;
 
 }
 

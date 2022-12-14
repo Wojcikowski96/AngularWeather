@@ -16,7 +16,7 @@ import { Weather } from '../model/Weather'
         }
       
       getWeatherForLocation(identity:number): Observable<any>{
-          console.log('http://localhost:8080/forecast?cityID='+identity+"&correlationId=angular")
+          //console.log('http://localhost:8080/forecast?cityID='+identity+"&correlationId=angular")
           return this.http.get('http://localhost:8080/forecast?cityID='+identity+"&correlationId=angular").pipe(shareReplay(1));
         }
   

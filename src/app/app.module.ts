@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -10,10 +10,23 @@ import { CitiesToProcessComponent } from './cities-to-process/cities-to-process.
 import { RouterModule, Routes } from '@angular/router';
 import { WeatherCardsComponent } from './weather-cards/weather-cards.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { AppService } from './app-service';
+@Injectable()
+export class XhrInterceptor implements HttpInterceptor {
+
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    const xhr = req.clone({
+      headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
+    });
+    return next.handle(xhr);
+  }
+}
 
 const appRoutes: Routes = [
-  { path: 'select-predefined-city', component: SelectPredefinedCityComponent},
-  { path: 'cities-to-process', component: CitiesToProcessComponent },
+  { path: '', pathMatch: 'full', redirectTo: '/login'},
+  { path: 'home', component: GridContainerComponent},
+  { path: 'login', component: LoginFormComponent}
 ];
 
 @NgModule({
@@ -22,7 +35,8 @@ const appRoutes: Routes = [
     GridContainerComponent,
     SelectPredefinedCityComponent,
     CitiesToProcessComponent,
-    WeatherCardsComponent
+    WeatherCardsComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +47,7 @@ const appRoutes: Routes = [
       appRoutes,
     )
   ],
-  providers: [],
+  providers: [AppService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
