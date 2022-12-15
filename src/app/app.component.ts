@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AppService } from './app-service';
+import { AppService } from './services/LoginService';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { finalize } from "rxjs/operators";
