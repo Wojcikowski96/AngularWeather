@@ -7,42 +7,23 @@ import { map } from 'rxjs/internal/operators/map';
       providedIn: 'root'
     }
   )
-export class AppService {
+export class LoginService {
 
-  authenticated = false;
+
+
 
 
   constructor(private http: HttpClient) {
   }
 
-  authenticate(credentials: { username: string; password: string; } | undefined, callback: (() => any) | undefined) {
+  authenticate(credentials: { email: string; password: string; } | undefined) {
     console.log("passing credentials:");
     console.log(credentials)
 
-        const headers = new HttpHeaders(credentials ? {
-            authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
-        } : {});
-        console.log(headers)
 
-        this.http.get('http://localhost:8080/user', {headers: headers})
-        
-      //   .pipe(map(response => ({
-      //     name: response.name,
-      //     authenticated: response.authenticated
-          
-      // })))   
-.subscribe(response => {
-            console.log("naglowki");
-            console.log(headers);
-            if (response) {
-                this.authenticated = true;
-            } else {
-                this.authenticated = false;
-            }
-            console.log("Wartość responsa")
-            console.log(response)
-            return callback && callback();
-        });
+        return this.http.post<any>('http://localhost:8080/authenticate', credentials);
+
+
 
     }
 

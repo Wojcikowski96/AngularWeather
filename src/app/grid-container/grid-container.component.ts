@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from '../services/LoginService';
+
 @Component({
   selector: 'app-grid-container',
   templateUrl: './grid-container.component.html',
@@ -7,15 +7,13 @@ import { AppService } from '../services/LoginService';
 })
 export class GridContainerComponent implements OnInit {
 
-  constructor(private app: AppService) {
+  constructor() {
 
   }
   ngOnInit(): void {
-    console.log("Na init homa")
-    console.log(this.app.authenticated)
-    throw new Error('Method not implemented.');
+
   }
 
-  authenticated() { return this.app.authenticated; }
+
 
 }

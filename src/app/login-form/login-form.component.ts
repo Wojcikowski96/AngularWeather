@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from '../services/LoginService';
+import { LoginService } from '../services/LoginService';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -9,17 +9,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
-  credentials = {username: '', password: ''};
+  credentials = {email: '', password: ''};
 
-  constructor(private app: AppService, private http: HttpClient, private router: Router) { }
+  token: any
+
+  constructor(private loginService: LoginService, private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
   }
   login() {
-    this.app.authenticate(this.credentials, () => {
-        this.router.navigateByUrl('/');
-    });
-    return false;
+    this.loginService.authenticate(this.credentials).subscribe(token => {this.token = token.text
+    alert(this.token.text)
+    
+    })
+    };
+
   }
 
-}
+

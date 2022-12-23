@@ -11,7 +11,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { WeatherCardsComponent } from './weather-cards/weather-cards.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginFormComponent } from './login-form/login-form.component';
-import { AppService } from './services/LoginService';
+
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
 
@@ -47,7 +47,7 @@ const appRoutes: Routes = [
       appRoutes,
     )
   ],
-  providers: [AppService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
